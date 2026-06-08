@@ -1,0 +1,141 @@
+# Driver Drowsiness Detection System
+
+## Overview
+
+Smart Driver Drowsiness Detection System is a web-based application designed to monitor a driver's eye movements and blinking patterns to detect signs of drowsiness and alert the driver before an accident occurs.
+
+## Problem Statement
+
+Smart Driver fatigue is one of the major causes of road accidents worldwide. Long driving hours, insufficient sleep, and night travel can reduce concentration and reaction time.
+
+This project aims to provide an intelligent monitoring system that can detect drowsiness and generate alerts in real time.
+
+## Features
+
+- User Login
+- Driver Dashboard
+- Live Monitoring Interface
+- Blink Detection Status
+- Drowsiness Detection Status
+- Alert Generation
+- Alert History
+- Reports Dashboard
+
+## Use Case Diagram
+
+![Use Case Diagram](image.png)
+
+## System Workflow
+
+1. Driver logs into the system.
+2. Driver starts monitoring.
+3. Camera captures live video.
+4. Face and eyes are detected.
+5. Eye blinking is monitored.
+6. Drowsiness level is calculated.
+7. Alert is generated when drowsiness is detected.
+8. Alert history is stored.
+9. Administrator can view reports and alert history.
+
+## Database Design
+
+### Table List
+
+The database consists of the following key tables:
+
+| Table Name | Description | Key Fields |
+| :--- | :--- | :--- |
+| **`users`** | Stores registration, credentials, and roles for drivers and administrators. | `id` (PK), `username`, `email`, `password_hash`, `role` |
+| **`sessions`** | Tracks each monitoring session started by a driver. | `id` (PK), `user_id` (FK), `start_time`, `end_time`, `status` |
+| **`alerts`** | Logs drowsiness alerts triggered during monitoring sessions. | `id` (PK), `session_id` (FK), `user_id` (FK), `drowsiness_level`, `timestamp`, `status` |
+
+### ER Diagram
+
+Both the visual diagram and Mermaid schema representation are shown below:
+
+#### Visual ER Diagram
+![ER Diagram](er_diagram.png)
+
+#### Schema Relationship Diagram
+```mermaid
+erDiagram
+    users ||--o{ sessions : "starts"
+    users ||--o{ alerts : "triggers"
+    sessions ||--o{ alerts : "contains"
+    
+    users {
+        int id PK
+        string username
+        string email
+        string password_hash
+        string role
+        timestamp created_at
+    }
+    sessions {
+        int id PK
+        int user_id FK
+        timestamp start_time
+        timestamp end_time
+        string status
+    }
+    alerts {
+        int id PK
+        int session_id FK
+        int user_id FK
+        decimal drowsiness_level
+        timestamp timestamp
+        string status
+    }
+```
+
+### SQL Schema
+
+```sql
+-- Create Users Table
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    role ENUM('driver', 'admin') DEFAULT 'driver',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create Sessions Table
+CREATE TABLE sessions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    end_time TIMESTAMP NULL,
+    status VARCHAR(20) DEFAULT 'active',
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Create Alerts Table
+CREATE TABLE alerts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    session_id INT NOT NULL,
+    user_id INT NOT NULL,
+    drowsiness_level DECIMAL(5,2) NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('alerted', 'dismissed', 'ignored') DEFAULT 'alerted',
+    FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+```
+
+## Technologies Used
+
+- React.js
+- Tailwind CSS
+- JavaScript
+- HTML
+- CSS
+
+## Future Enhancements
+
+- Real-time webcam integration
+- OpenCV implementation
+- AI-based eye tracking
+- SMS and Email alerts
+- Cloud database integration
