@@ -146,6 +146,29 @@ CREATE TABLE alerts (
 );
 ```
 
+## UI Wireframe Design & Page Layouts
+
+Below are the key page layouts designed for the Smart Driver Drowsiness Detection System:
+
+### 1. Login Page Layout
+A clean, centralized portal for Drivers and Administrators to authenticate.
+
+![Login Page Wireframe](login_wireframe.png)
+
+---
+
+### 2. Driver Live Monitoring Dashboard
+The real-time interface showing webcam capture feed, real-time Eye Aspect Ratio (EAR) metric analytics, blink counter, and the current drowsiness status.
+
+![Driver Dashboard Wireframe](driver_dashboard_wireframe.png)
+
+---
+
+### 3. Administrator Reports & Analytics Dashboard
+A secure dashboard for administrators to view aggregated statistics, active sessions, safety metrics, and historical logs.
+
+![Admin Dashboard Wireframe](admin_dashboard_wireframe.png)
+
 ## Technologies Used
 
 - React.js
