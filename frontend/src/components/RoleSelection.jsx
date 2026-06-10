@@ -10,7 +10,8 @@ export default function RoleSelection({ onSelect }) {
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.play().catch(err => {
-        console.warn("Autoplay was prevented by the browser. Awaiting interaction or skip.", err);
+        console.warn("Autoplay was prevented by the browser. Skipping intro video.", err);
+        setVideoFinished(true); // Skip intro if browser blocks autoplay
       });
     }
   }, []);
