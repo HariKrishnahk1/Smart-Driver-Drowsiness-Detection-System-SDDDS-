@@ -1,32 +1,28 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Car, Shield, Eye, AlertTriangle, Volume2, VolumeX, Play, SkipForward } from 'lucide-react';
+import { Car, Shield, Eye, AlertTriangle, Volume2, VolumeX } from 'lucide-react';
 
 export default function RoleSelection({ onSelect }) {
-  const [videoStarted, setVideoStarted] = useState(false);
   const [videoFinished, setVideoFinished] = useState(false);
-  const [isMuted, setIsMuted] = useState(false); // Default to false so it plays with audio
+  const [isMuted, setIsMuted] = useState(false); // Start unmuted
   const videoRef = useRef(null);
 
-  // Play video with audio when started via user click interaction
+  // Auto-play unmuted video on mount, fallback to muted if blocked
   useEffect(() => {
-    if (videoStarted && !videoFinished && videoRef.current) {
-      videoRef.current.muted = isMuted;
+    if (videoRef.current) {
+      videoRef.current.muted = false;
       videoRef.current.play().catch(err => {
-        console.warn("Audio autoplay was prevented. Muting to recover.", err);
-        videoRef.current.muted = true;
-        setIsMuted(true);
-        videoRef.current.play().catch(e => {
-          console.error("Playback failed entirely:", e);
-          setVideoFinished(true);
-        });
+        console.warn("Autoplay with audio blocked. Falling back to muted playback.", err);
+        if (videoRef.current) {
+          videoRef.current.muted = true;
+          setIsMuted(true);
+          videoRef.current.play().catch(e => {
+            console.error("Playback failed entirely. Skipping intro:", e);
+            setVideoFinished(true);
+          });
+        }
       });
     }
-  }, [videoStarted, videoFinished, isMuted]);
-
-  const handleStartWithAudio = () => {
-    setIsMuted(false);
-    setVideoStarted(true);
-  };
+  }, []);
 
   const handleSkip = () => {
     setVideoFinished(true);
@@ -40,38 +36,7 @@ export default function RoleSelection({ onSelect }) {
     }
   };
 
-  // 1. Initial Splash Screen (Unlocks unmuted video via click)
-  if (!videoStarted && !videoFinished) {
-    return (
-      <div style={styles.splashOverlay} className="intro-fade-in">
-        <div className="glass-card" style={styles.splashCard}>
-          <div style={styles.splashLogoContainer}>
-            <Eye size={60} color="#6366f1" style={styles.splashEyeIcon} />
-            <h1 style={styles.splashTitle}>Smart Driver Drowsiness Detection System</h1>
-            <p style={styles.splashSubtitle}>AI-Powered Real-time Safety Monitoring & Alerts</p>
-          </div>
-          
-          <div style={styles.splashActionGroup}>
-            <button onClick={handleStartWithAudio} className="play-intro-btn">
-              <Play size={18} fill="#fff" />
-              <span>Watch Intro (With Audio)</span>
-            </button>
-            
-            <button onClick={handleSkip} style={styles.enterDirectlyBtn} className="glass-btn glass-btn-secondary">
-              <SkipForward size={16} />
-              <span>Skip directly to Portal</span>
-            </button>
-          </div>
-          
-          <div style={styles.splashFooter}>
-            <p>Developed with MediaPipe & React for Smart Driving Safety</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // 2. Video Player Overlay
+  // 1. Video Player Overlay on startup (No asking page)
   if (!videoFinished) {
     return (
       <div style={styles.videoOverlay}>
