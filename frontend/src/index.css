@@ -378,6 +378,31 @@ h1, h2, h3, h4 {
   transform: scale(1.1);
 }
 
+/* Play Intro Button with Hover effects */
+.play-intro-btn {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  color: #fff;
+  padding: 0.9rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  box-shadow: 0 8px 24px var(--primary-glow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+}
 
+.play-intro-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px var(--primary-glow);
+  background: linear-gradient(135deg, var(--primary-hover) 0%, #818cf8 100%);
+}
 
-
+.play-intro-btn:active {
+  transform: translateY(1px);
+}

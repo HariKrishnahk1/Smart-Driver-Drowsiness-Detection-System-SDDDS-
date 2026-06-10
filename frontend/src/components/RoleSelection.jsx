@@ -1,20 +1,32 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Car, Shield, Eye, AlertTriangle, Volume2, VolumeX } from 'lucide-react';
+import { Car, Shield, Eye, AlertTriangle, Volume2, VolumeX, Play, SkipForward } from 'lucide-react';
 
 export default function RoleSelection({ onSelect }) {
+  const [videoStarted, setVideoStarted] = useState(false);
   const [videoFinished, setVideoFinished] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false); // Default to false so it plays with audio
   const videoRef = useRef(null);
 
-  // Attempt to play video on mount
+  // Play video with audio when started via user click interaction
   useEffect(() => {
-    if (videoRef.current) {
+    if (videoStarted && !videoFinished && videoRef.current) {
+      videoRef.current.muted = isMuted;
       videoRef.current.play().catch(err => {
-        console.warn("Autoplay was prevented by the browser. Skipping intro video.", err);
-        setVideoFinished(true); // Skip intro if browser blocks autoplay
+        console.warn("Audio autoplay was prevented. Muting to recover.", err);
+        videoRef.current.muted = true;
+        setIsMuted(true);
+        videoRef.current.play().catch(e => {
+          console.error("Playback failed entirely:", e);
+          setVideoFinished(true);
+        });
       });
     }
-  }, []);
+  }, [videoStarted, videoFinished, isMuted]);
+
+  const handleStartWithAudio = () => {
+    setIsMuted(false);
+    setVideoStarted(true);
+  };
 
   const handleSkip = () => {
     setVideoFinished(true);
@@ -22,11 +34,44 @@ export default function RoleSelection({ onSelect }) {
 
   const toggleMute = () => {
     if (videoRef.current) {
-      videoRef.current.muted = !videoRef.current.muted;
-      setIsMuted(videoRef.current.muted);
+      const targetMuted = !videoRef.current.muted;
+      videoRef.current.muted = targetMuted;
+      setIsMuted(targetMuted);
     }
   };
 
+  // 1. Initial Splash Screen (Unlocks unmuted video via click)
+  if (!videoStarted && !videoFinished) {
+    return (
+      <div style={styles.splashOverlay} className="intro-fade-in">
+        <div className="glass-card" style={styles.splashCard}>
+          <div style={styles.splashLogoContainer}>
+            <Eye size={60} color="#6366f1" style={styles.splashEyeIcon} />
+            <h1 style={styles.splashTitle}>Smart Driver Drowsiness Detection System</h1>
+            <p style={styles.splashSubtitle}>AI-Powered Real-time Safety Monitoring & Alerts</p>
+          </div>
+          
+          <div style={styles.splashActionGroup}>
+            <button onClick={handleStartWithAudio} className="play-intro-btn">
+              <Play size={18} fill="#fff" />
+              <span>Watch Intro (With Audio)</span>
+            </button>
+            
+            <button onClick={handleSkip} style={styles.enterDirectlyBtn} className="glass-btn glass-btn-secondary">
+              <SkipForward size={16} />
+              <span>Skip directly to Portal</span>
+            </button>
+          </div>
+          
+          <div style={styles.splashFooter}>
+            <p>Developed with MediaPipe & React for Smart Driving Safety</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // 2. Video Player Overlay
   if (!videoFinished) {
     return (
       <div style={styles.videoOverlay}>
@@ -34,7 +79,6 @@ export default function RoleSelection({ onSelect }) {
           ref={videoRef}
           src="/intro.mp4" 
           autoPlay 
-          muted 
           playsInline 
           onEnded={() => setVideoFinished(true)} 
           onError={() => {
@@ -277,5 +321,61 @@ const styles = {
     gap: '0.5rem',
     boxShadow: '0 4px 14px rgba(79, 70, 229, 0.4)',
     transition: 'all 0.2s ease',
+  },
+  splashOverlay: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '85vh',
+    padding: '2rem 1rem',
+    width: '100%',
+  },
+  splashCard: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    textAlign: 'center',
+    padding: '3rem 2.5rem',
+    maxWidth: '550px',
+    width: '100%',
+  },
+  splashLogoContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '1rem',
+    marginBottom: '2rem',
+  },
+  splashEyeIcon: {
+    filter: 'drop-shadow(0 0 12px rgba(99, 102, 241, 0.5))',
+  },
+  splashTitle: {
+    fontSize: '1.85rem',
+    fontWeight: '800',
+    lineHeight: '1.25',
+    fontFamily: "'Batangas', 'Cinzel', serif",
+    background: 'linear-gradient(135deg, #ffffff 40%, #a5b4fc 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+  },
+  splashSubtitle: {
+    fontSize: '0.95rem',
+    color: 'var(--text-muted)',
+    lineHeight: '1.5',
+  },
+  splashActionGroup: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '0.75rem',
+    width: '100%',
+    maxWidth: '280px',
+    marginBottom: '1.5rem',
+  },
+  enterDirectlyBtn: {
+    width: '100%',
+  },
+  splashFooter: {
+    fontSize: '0.75rem',
+    color: 'var(--text-dim)',
   }
 };
