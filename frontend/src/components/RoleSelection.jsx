@@ -11,7 +11,7 @@ export default function RoleSelection({ onSelect }) {
     if (videoRef.current) {
       videoRef.current.muted = false;
       videoRef.current.play().catch(err => {
-        console.warn("Autoplay with audio blocked. Falling back to muted playback.", err);
+        console.warn("Autoplay with audio blocked or interrupted. Falling back to muted playback.", err);
         if (videoRef.current) {
           videoRef.current.muted = true;
           setIsMuted(true);
@@ -44,6 +44,7 @@ export default function RoleSelection({ onSelect }) {
           ref={videoRef}
           src="/intro.mp4" 
           autoPlay 
+          muted={isMuted}
           playsInline 
           onEnded={() => setVideoFinished(true)} 
           onError={() => {
