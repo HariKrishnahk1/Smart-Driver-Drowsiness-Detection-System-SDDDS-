@@ -110,7 +110,7 @@ export default function RoleSelection({ onSelect }) {
           </div>
           <h2 style={styles.cardTitle}>Owner Dashboard</h2>
           <p style={styles.cardDesc}>
-            Monitor active vehicles in real-time, view live video streams with face meshes, and analyze historical safety alert statistics.
+            Monitor active vehicles in real-time, view live video streams and screenshots of driver activities....
           </p>
           <div style={styles.cardFooter}>
             <span style={{ color: '#10b981' }}>Access Portal</span>
@@ -201,6 +201,8 @@ const styles = {
     lineHeight: '1.6',
     flexGrow: 1,
     marginBottom: '1.5rem',
+    fontFamily: "'slimbody', 'Outfit', 'Inter', sans-serif",
+    fontWeight: '300',
   },
   cardFooter: {
     display: 'flex',
