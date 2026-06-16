@@ -1,23 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Germania+One&family=Alex+Brush&family=Great+Vibes&family=Cookie&family=Cinzel:wght@700;800&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bg-dark: #090d16;
-  --bg-dark-accent: #0f1524;
-  --glass-bg: rgba(15, 22, 38, 0.45);
-  --glass-bg-hover: rgba(23, 32, 54, 0.65);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-border-focus: rgba(255, 255, 255, 0.2);
+  --bg-dark: #000000;
+  --bg-dark-accent: #08080c;
+  --glass-bg: rgba(5, 5, 8, 0.75);
+  --glass-bg-hover: rgba(14, 14, 20, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-border-focus: rgba(255, 255, 255, 0.45);
   
-  --primary: #4f46e5;
-  --primary-glow: rgba(79, 70, 229, 0.45);
-  --primary-hover: #6366f1;
+  --primary: #ffffff; /* Glowing Neon White */
+  --primary-glow: rgba(255, 255, 255, 0.35);
+  --primary-hover: #e5e7eb; /* Glowing Neon Silver/White */
+  
+  --owner-accent: #a3a3a3; /* Glowing Neon Silver/Grey */
+  --owner-accent-glow: rgba(163, 163, 163, 0.35);
   
   --text-main: #f3f4f6;
   --text-muted: #9ca3af;
   --text-dim: #6b7280;
   
-  --status-green: #10b981;
-  --status-green-glow: rgba(16, 185, 129, 0.4);
+  --status-green: #00ffaa;
+  --status-green-glow: rgba(0, 255, 170, 0.35);
   --status-yellow: #f59e0b;
   --status-yellow-glow: rgba(245, 158, 11, 0.4);
   --status-red: #ef4444;
@@ -36,9 +39,17 @@ body {
   font-family: 'Outfit', 'Inter', sans-serif;
   background-color: var(--bg-dark);
   background-image: 
-    radial-gradient(at 0% 0%, rgba(30, 27, 75, 0.4) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(17, 24, 39, 0.8) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(49, 46, 129, 0.2) 0px, transparent 50%);
+    /* White Cybernetic grid pattern */
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    /* White/Silver neural hotspot radial glows */
+    radial-gradient(at 10% 20%, rgba(255, 255, 255, 0.08) 0px, transparent 40%),
+    radial-gradient(at 90% 10%, rgba(163, 163, 163, 0.06) 0px, transparent 35%),
+    radial-gradient(at 50% 80%, rgba(255, 255, 255, 0.06) 0px, transparent 45%),
+    radial-gradient(at 80% 90%, rgba(163, 163, 163, 0.04) 0px, transparent 35%),
+    /* Vignette base dark overlay */
+    radial-gradient(circle at center, rgba(10, 10, 15, 0.08) 0%, #000000 100%);
+  background-size: 30px 30px, 30px 30px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
   color: var(--text-main);
   min-height: 100vh;
   overflow-x: hidden;
@@ -71,18 +82,18 @@ h1, h2, h3, h4 {
 /* Glassmorphism Card styling */
 .glass-card {
   background: var(--glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border);
   border-radius: 16px;
   padding: 2rem;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.55), inset 0 0 15px rgba(255, 255, 255, 0.03);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card:hover {
   border-color: var(--glass-border-focus);
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.75), 0 0 20px rgba(255, 255, 255, 0.15), inset 0 0 15px rgba(255, 255, 255, 0.03);
 }
 
 .glass-card-interactive {
@@ -91,7 +102,7 @@ h1, h2, h3, h4 {
 
 .glass-card-interactive:hover {
   background: var(--glass-bg-hover);
-  transform: translateY(-4px);
+  transform: translateY(-5px);
 }
 
 /* Inputs styling */
@@ -103,44 +114,46 @@ h1, h2, h3, h4 {
 }
 
 .glass-input-label {
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 0.85rem;
+  font-weight: 600;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
 .glass-input {
-  background: rgba(10, 15, 30, 0.6);
+  background: rgba(5, 5, 12, 0.85);
   border: 1px solid var(--glass-border);
   border-radius: 8px;
   padding: 0.75rem 1rem;
   color: var(--text-main);
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
   width: 100%;
 }
 
 .glass-input:focus {
   outline: none;
-  border-color: var(--primary-hover);
-  box-shadow: 0 0 0 2px var(--primary-glow);
-  background: rgba(10, 15, 30, 0.8);
+  border-color: var(--primary);
+  box-shadow: 0 0 14px var(--primary-glow);
+  background: rgba(5, 5, 12, 0.95);
 }
 
 /* Buttons styling */
 .glass-btn {
-  background: var(--primary);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, var(--primary) 0%, #e5e7eb 100%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 8px;
   padding: 0.75rem 1.5rem;
-  color: white;
+  color: #000000;
   font-family: 'Outfit', sans-serif;
-  font-weight: 600;
-  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -149,9 +162,11 @@ h1, h2, h3, h4 {
 }
 
 .glass-btn:hover {
-  background: var(--primary-hover);
-  box-shadow: 0 0 16px var(--primary-glow);
-  transform: translateY(-1px);
+  background: linear-gradient(135deg, var(--primary-hover) 0%, #a3a3a3 100%);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #000000;
+  box-shadow: 0 0 24px rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
 }
 
 .glass-btn:active {
@@ -159,20 +174,23 @@ h1, h2, h3, h4 {
 }
 
 .glass-btn:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
   transform: none !important;
   box-shadow: none !important;
 }
 
 .glass-btn-secondary {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--glass-border);
+  color: var(--primary);
 }
 
 .glass-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--primary-hover);
+  color: var(--primary-hover);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
 }
 
 .glass-btn-danger {

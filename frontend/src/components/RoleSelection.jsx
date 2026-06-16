@@ -88,7 +88,7 @@ export default function RoleSelection({ onSelect }) {
           onClick={() => onSelect('driver')}
         >
           <div style={styles.iconCircle}>
-            <Car size={36} color="#6366f1" />
+            <Car size={36} color="var(--primary)" />
           </div>
           <h2 style={styles.cardTitle}>Driver Panel</h2>
           <p style={styles.cardDesc}>
@@ -107,15 +107,15 @@ export default function RoleSelection({ onSelect }) {
           onClick={() => onSelect('owner')}
         >
           <div style={styles.iconCircle}>
-            <Shield size={36} color="#10b981" />
+            <Shield size={36} color="var(--owner-accent)" />
           </div>
           <h2 style={styles.cardTitle}>Owner Dashboard</h2>
           <p style={styles.cardDesc}>
             Monitor active vehicles in real-time, view live video streams and screenshots of driver activities....
           </p>
           <div style={styles.cardFooter}>
-            <span style={{ color: '#10b981' }}>Access Portal</span>
-            <span style={{ ...styles.arrow, color: '#10b981' }}>&rarr;</span>
+            <span style={{ color: 'var(--owner-accent)' }}>Access Portal</span>
+            <span style={{ ...styles.arrow, color: 'var(--owner-accent)' }}>&rarr;</span>
           </div>
         </div>
       </div>
@@ -158,7 +158,7 @@ const styles = {
     fontWeight: '800',
     fontFamily: "'Batangas', 'Cinzel', serif",
     letterSpacing: '0.02em',
-    background: 'linear-gradient(135deg, #ffffff 40%, #c7d2fe 100%)',
+    background: 'linear-gradient(135deg, #ffffff 30%, var(--primary) 70%, var(--primary-hover) 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
   },
@@ -323,7 +323,7 @@ const styles = {
     fontWeight: '800',
     lineHeight: '1.25',
     fontFamily: "'Batangas', 'Cinzel', serif",
-    background: 'linear-gradient(135deg, #ffffff 40%, #a5b4fc 100%)',
+    background: 'linear-gradient(135deg, #ffffff 30%, var(--primary) 70%, var(--primary-hover) 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
   },

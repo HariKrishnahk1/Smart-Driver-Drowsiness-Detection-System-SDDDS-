@@ -268,7 +268,7 @@ export default function OwnerDashboard({ onLogout }) {
       {/* Header bar */}
       <header style={styles.navBar} className="glass-card">
         <div style={styles.logoGroup}>
-          <Shield size={24} color="#10b981" />
+          <Shield size={24} color="var(--owner-accent)" />
           <h2 style={styles.navTitle}>SDDDS Owner Portal</h2>
         </div>
         

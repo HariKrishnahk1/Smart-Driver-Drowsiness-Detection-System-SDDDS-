@@ -114,9 +114,9 @@ export default function LoginCard({ role, onBack, onLoginSuccess }) {
       <div className="glass-card" style={styles.card}>
         <div style={styles.iconHeader}>
           {role === 'driver' ? (
-            <Car size={36} color="#6366f1" />
+            <Car size={36} color="var(--primary)" />
           ) : (
-            <Shield size={36} color="#10b981" />
+            <Shield size={36} color="var(--owner-accent)" />
           )}
           <h2 style={styles.title}>
             {role === 'driver' ? 'Driver Portal' : 'Owner Portal'}
@@ -134,7 +134,7 @@ export default function LoginCard({ role, onBack, onLoginSuccess }) {
             style={{
               ...styles.tab,
               ...(!isRegister ? styles.activeTab : {}),
-              borderBottomColor: !isRegister ? (role === 'driver' ? '#6366f1' : '#10b981') : 'transparent'
+              borderBottomColor: !isRegister ? (role === 'driver' ? 'var(--primary)' : 'var(--owner-accent)') : 'transparent'
             }}
           >
             Sign In
@@ -145,7 +145,7 @@ export default function LoginCard({ role, onBack, onLoginSuccess }) {
             style={{
               ...styles.tab,
               ...(isRegister ? styles.activeTab : {}),
-              borderBottomColor: isRegister ? (role === 'driver' ? '#6366f1' : '#10b981') : 'transparent'
+              borderBottomColor: isRegister ? (role === 'driver' ? 'var(--primary)' : 'var(--owner-accent)') : 'transparent'
             }}
           >
             Create Account
@@ -256,8 +256,8 @@ export default function LoginCard({ role, onBack, onLoginSuccess }) {
             disabled={loading}
             style={{
               marginTop: '1rem',
-              background: role === 'driver' ? 'var(--primary)' : 'var(--status-green)',
-              boxShadow: role === 'driver' ? '0 4px 14px var(--primary-glow)' : '0 4px 14px var(--status-green-glow)'
+              background: role === 'driver' ? 'var(--primary)' : 'var(--owner-accent)',
+              boxShadow: role === 'driver' ? '0 4px 14px var(--primary-glow)' : '0 4px 14px var(--owner-accent-glow)'
             }}
           >
             {loading ? 'Authenticating...' : (isRegister ? 'Register Account' : 'Sign In')}

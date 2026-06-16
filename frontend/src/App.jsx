@@ -134,9 +134,9 @@ export default function App() {
             {/* Hubcap center */}
             <circle cx="50" cy="50" r="10" fill="#1f2937" stroke="#4b5563" strokeWidth="2" />
             {/* Center hub nut */}
-            <circle cx="50" cy="50" r="4" fill="#6366f1" />
+            <circle cx="50" cy="50" r="4" fill="var(--primary)" />
             {/* Motion speed ticks */}
-            <circle cx="50" cy="50" r="23" stroke="rgba(99, 102, 241, 0.4)" strokeWidth="2.5" strokeDasharray="10, 15" fill="none" />
+            <circle cx="50" cy="50" r="23" stroke="rgba(255, 255, 255, 0.4)" strokeWidth="2.5" strokeDasharray="10, 15" fill="none" />
           </svg>
           <span className="loader-text">{loadingMessage}</span>
         </div>
