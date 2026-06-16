@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Car, Shield, Eye, AlertTriangle, Volume2, VolumeX } from 'lucide-react';
+import { Car, Shield, AlertTriangle, Volume2, VolumeX } from 'lucide-react';
+import NeonEyesLogo from './NeonEyesLogo';
 
 export default function RoleSelection({ onSelect }) {
   const [videoFinished, setVideoFinished] = useState(false);
@@ -73,7 +74,7 @@ export default function RoleSelection({ onSelect }) {
     <div style={styles.container} className="intro-fade-in">
       <header style={styles.header}>
         <div style={styles.logoContainer}>
-          <Eye size={40} color="#6366f1" style={styles.eyeIcon} />
+          <NeonEyesLogo size={55} style={styles.eyeIcon} />
           <h1 style={styles.title}>Smart Driver Drowsiness Detection System</h1>
         </div>
         <p style={styles.subtitle}>AI-Powered Driver Drowsiness Monitoring</p>

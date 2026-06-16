@@ -4,7 +4,8 @@ import LoginCard from './components/LoginCard';
 import CameraSetup from './components/CameraSetup';
 import DriverActive from './components/DriverActive';
 import OwnerDashboard from './components/OwnerDashboard';
-import { Eye, Shield, LogOut } from 'lucide-react';
+import { Shield, LogOut } from 'lucide-react';
+import NeonEyesLogo from './components/NeonEyesLogo';
 
 export default function App() {
   const [role, setRole] = useState(null); // 'driver', 'owner', null
@@ -44,7 +45,7 @@ export default function App() {
       {user && role === 'driver' && (
         <header style={styles.appHeader} className="glass-card">
           <div style={styles.logoGroup}>
-            <Eye size={22} color="#6366f1" />
+            <NeonEyesLogo size={30} />
             <span style={styles.logoText}>SDDDS Driver Portal</span>
           </div>
           <div style={styles.headerRight}>
