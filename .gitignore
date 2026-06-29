@@ -1,0 +1,19 @@
+# Python virtual environment
+backend/venv/
+backend/.venv/
+backend/__pycache__/
+backend/*.pyc
+backend/drowsiness_system.db
+backend/screenshots/
+
+# Frontend builds and dependencies
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/*.local
+
+# Logs and system
+*.log
+.DS_Store
+.vscode/
+.idea/
