@@ -229,8 +229,13 @@ def test_camera():
     camera_type = data.get('camera_type') # 'webcam' or 'ip_camera'
     camera_url = data.get('camera_url')
     
-    source = 0 if camera_type == 'webcam' else camera_url
-    if not source and camera_type == 'ip_camera':
+    if camera_type == 'webcam':
+        # Webcams are client-side (browser captures feed and streams it).
+        # Bypassing server-side connection test since backend runs in cloud/headless container.
+        return jsonify({'success': True, 'message': 'Webcam ready (client-side capture enabled).'})
+        
+    source = camera_url
+    if not source:
         return jsonify({'success': False, 'message': 'Camera URL required for IP Camera.'}), 400
         
     is_connected = DrowsinessDetector.test_camera_connection(source)
